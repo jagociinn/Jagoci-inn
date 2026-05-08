@@ -1293,21 +1293,14 @@ document.getElementById('grandTotal')
   const name = document.querySelector('input[placeholder="Nama Lengkap"]').value;
   const email = document.querySelector('input[placeholder="Email"]').value;
   const phone = document.querySelector('input[placeholder="Nomor WhatsApp"]').value;
-  const note = document.querySelector("textarea").value;
+  const total = document.getElementById("grandTotal").innerText.replace("Rp", "");
 
-  const rooms = [];
-
-  document.querySelectorAll(".room-item").forEach(room => {
-    rooms.push({
-      type: room.querySelector(".roomType").selectedOptions[0].text,
-      checkin: room.querySelector(".checkin").value,
-      checkout: room.querySelector(".checkout").value
-    });
-  });
-
-  const total = document.getElementById("grandTotal").innerText.replace("Rp", "").trim();
+  const statusBox = document.getElementById("statusBooking");
 
   try {
+    statusBox.innerText = "Mengirim booking...";
+    statusBox.style.color = "orange";
+
     const res = await fetch("http://localhost:3000/api/booking", {
       method: "POST",
       headers: {
@@ -1317,24 +1310,25 @@ document.getElementById('grandTotal')
         name,
         email,
         phone,
-        rooms,
-        total,
-        note
+        total
       })
     });
 
     const data = await res.json();
 
-if (data && data.success === true)  {
-      alert("Booking berhasil dikirim ke admin WhatsApp!");
+    if (data.status === true) {
+      statusBox.innerText = "Booking telah dikirim";
+      statusBox.style.color = "green";
     } else {
-      alert("Gagal mengirim booking");
+      statusBox.innerText = "Gagal mengirim booking";
+      statusBox.style.color = "red";
     }
 
-  } catch (err) {
-    alert("Server tidak tersambung");
+  } catch (error) {
+    console.log(error);
+    statusBox.innerText = "Server error";
+    statusBox.style.color = "red";
   }
-
 });
     
    const socket = io("http://localhost:3000");
