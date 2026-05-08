@@ -3,639 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Jagoci Inn Luxury Hotel</title>
-
-<!-- GOOGLE FONT -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+  <style>
+footer .footer-brand p {
+  text-align: justify;
+  line-height: 1.6;
+}
+</style>
+  
+<head>
+  <style>
+    #about p {
+      text-align: justify;
+      line-height: 1.6;
+    }
+  </style>
+</head>
 <style>
 
-/* RESET */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
-}
-
-body{
-background:#f4f7fb;
-color:#1e293b;
-overflow-x:hidden;
-}
-
-img{
-width:100%;
-display:block;
-}
-
-a{
-text-decoration:none;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+body{background:#0b1220;color:#e5e7eb;overflow-x:hidden;}
+img{width:100%;display:block;}
+a{text-decoration:none;}
 
 /* HEADER */
+header{height:100vh;position:relative;overflow:hidden;}
 
-header{
-position:relative;
-height:100vh;
-overflow:hidden;
-}
-
-/* HEADER SLIDER */
-
-.header-slider{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
+.header-slider{position:absolute;inset:0;z-index:0;}
+.header-slide{
+position:absolute;inset:0;
 opacity:0;
-transform:scale(1.1);
-transition:
-opacity 1.5s ease,
-transform 8s ease;
+transform:scale(1.1) translateX(30px);
+transition:opacity 1.2s ease, transform 1.8s ease;
 }
-
-.slide.active{
+.header-slide.active{
 opacity:1;
-transform:scale(1);
+transform:scale(1) translateX(0);
 z-index:1;
 }
-
-.slide img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-/* OVERLAY */
+.header-slide img{width:100%;height:100%;object-fit:cover;}
 
 .overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.55);
-z-index:-1;
+position:absolute;inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.85));
+z-index:2;
 }
 
-/* NAVBAR */
-
+/* NAV */
 .navbar{
 position:fixed;
 top:20px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
-padding:18px 30px;
+padding:15px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:rgba(255,255,255,.1);
-backdrop-filter:blur(15px);
-border-radius:24px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(18px);
+border-radius:18px;
 z-index:999;
 }
 
-.logo{
-font-size:32px;
-font-weight:800;
-color:#fff;
-}
-
-/* DESKTOP MENU */
-
-.nav-links{
-display:flex;
-gap:25px;
-align-items:center;
-}
-
-.nav-links a{
-color:#fff;
-font-weight:500;
-transition:.3s;
-}
-
-.nav-links a:hover{
-color:#f4c542;
-}
-
-/* MOBILE MENU */
-
-.menu-toggle{
-display:none;
-font-size:32px;
-color:#fff;
-cursor:pointer;
-}
+.logo{font-size:22px;font-weight:800;color:#fff;}
+.nav-links{display:flex;gap:18px;}
+.nav-links a{color:#fff;}
+.hamburger{display:none;font-size:26px;color:#fff;cursor:pointer;}
 
 .mobile-menu{
-position:absolute;
-top:90px;
+position:fixed;
+top:80px;
 right:20px;
-width:260px;
-background:rgba(7,19,45,.95);
-backdrop-filter:blur(10px);
-padding:20px;
-border-radius:20px;
+background:#0f172a;
+padding:15px;
+border-radius:12px;
 display:none;
 flex-direction:column;
-gap:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
+gap:10px;
+z-index:1000;
 }
-
-.mobile-menu.active{
-display:flex;
-animation:fadeMenu .3s ease;
-}
-
-.mobile-menu a{
-color:#fff;
-padding:12px;
-border-radius:12px;
-transition:.3s;
-}
-
-.mobile-menu a:hover{
-background:#f4c542;
-color:#000;
-}
-
-@keyframes fadeMenu{
-
-from{
-opacity:0;
-transform:translateY(-10px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
+.mobile-menu.show{display:flex;}
+.mobile-menu a{color:#fff;}
 
 /* HERO */
-
 .hero{
-height:100vh;
+position:relative;
+z-index:3;
+height:100%;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:20px;
-position:relative;
-z-index:5;
+padding:0 8%;
 }
+.hero h1{font-size:clamp(40px,6vw,70px);color:#fff;font-weight:800;}
+.hero p{color:#cbd5e1;max-width:650px;margin-top:10px;}
 
-.hero-content h1{
-font-size:80px;
-color:#fff;
-margin-bottom:20px;
-animation:fadeUp 1s ease;
-}
+section{padding:90px 8%;}
+.section-title{text-align:center;margin-bottom:40px;}
+.section-title h2{font-size:40px;color:#fff;}
 
-.hero-content p{
-font-size:18px;
-color:#f1f5f9;
-max-width:700px;
-line-height:2;
-margin:auto;
-animation:fadeUp 1.5s ease;
-}
-
-.hero-btns{
-margin-top:35px;
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-animation:fadeUp 2s ease;
-}
-
-/* BUTTON */
-
-.btn{
-padding:15px 35px;
-border-radius:50px;
-font-weight:700;
-transition:.3s;
-display:inline-block;
-cursor:pointer;
-border:none;
-}
-
-.btn-primary{
-background:#f4c542;
-color:#000;
-}
-
-.btn-primary:hover{
-transform:translateY(-5px);
-}
-
-.btn-secondary{
-border:2px solid #fff;
-color:#fff;
-}
-
-.btn-secondary:hover{
-background:#fff;
-color:#000;
-}
-
-/* SECTION */
-
-section{
-padding:100px 8%;
-}
-
-.section-title{
-text-align:center;
-margin-bottom:60px;
-}
-
-.section-title h2{
-font-size:48px;
-margin-bottom:15px;
-}
-
-.section-title p{
-color:#64748b;
-}
-
-/* LIVE ROOM */
-
-.live-room{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
-
-.live-card{
-background:#fff;
-padding:30px;
-border-radius:25px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-transition:.3s;
-}
-
-.live-card:hover{
-transform:translateY(-10px);
-}
-
-.live-card h3{
-margin-bottom:10px;
-}
-
-.live-card span{
-font-size:40px;
-font-weight:800;
-color:#f59e0b;
-}
-
-/* ROOM */
-
-.room-container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
-}
+/* ROOMS */
+.room-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;}
 
 .room-card{
-background:#fff;
-border-radius:30px;
+background:rgba(255,255,255,.05);
+border-radius:18px;
 overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-transition:.4s;
+border:1px solid rgba(255,255,255,.08);
 }
 
-.room-card:hover{
-transform:translateY(-10px);
-}
+.slider{overflow:hidden;}
+.slides{display:flex;transition:.5s ease;}
+.slides img{min-width:100%;height:220px;object-fit:cover;}
 
-/* SLIDER ROOM */
-
-.slider{
-position:relative;
-overflow:hidden;
-}
-
-.slides{
+.controls{
 display:flex;
-transition:transform .5s ease;
-}
-
-.slides img{
-width:100%;
-height:260px;
-object-fit:cover;
-flex-shrink:0;
-}
-
-.slider-controls{
-display:flex;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
-gap:15px;
-padding:15px;
-background:#fff;
+padding:10px;
+background:rgba(0,0,0,.3);
 }
-
-.prev,
-.next{
-background:#07132d;
+.controls button{
+background:#111;
 color:#fff;
 border:none;
-width:45px;
-height:45px;
+width:35px;
+height:35px;
 border-radius:50%;
-font-size:18px;
-cursor:pointer;
-transition:.3s;
-}
-
-.prev:hover,
-.next:hover{
-background:#f4c542;
-color:#000;
-}
-
-.dots{
-display:flex;
-justify-content:center;
-gap:8px;
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-background:#cbd5e1;
 cursor:pointer;
 }
 
-.dot.active{
-background:#f59e0b;
-}
-
-/* ROOM CONTENT */
-
-.room-content{
-padding:25px;
-}
-
-.room-content h3{
-font-size:30px;
-margin-bottom:10px;
-}
-
-.price{
-font-size:24px;
-font-weight:700;
-color:#f59e0b;
-margin-bottom:15px;
-}
+.room-content{padding:16px;}
+.price{color:#f59e0b;font-weight:700;margin-bottom:8px;}
 
 .facilities{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin:20px 0;
-}
-
-.facilities span{
-background:#eef2ff;
-padding:8px 15px;
-border-radius:30px;
-font-size:14px;
+margin-top:10px;
+padding-left:18px;
+font-size:13px;
+line-height:1.7;
 }
 
 /* BOOKING */
-
 .booking{
-background:linear-gradient(135deg,#07132d,#0f1f4b);
-padding:50px 25px;
-border-radius:40px;
-color:#fff;
-}
-
-.booking h2{
-text-align:center;
-font-size:50px;
-margin-bottom:10px;
-}
-
-.booking p{
-text-align:center;
-margin-bottom:35px;
-color:#cbd5e1;
+background:#0f172a;
+border-radius:25px;
+padding:60px 8%;
 }
 
 .booking-form{
-background:#fff;
-padding:35px;
-border-radius:30px;
+background:rgba(255,255,255,.05);
+padding:22px;
+border-radius:16px;
 }
 
-.booking-form input,
-.booking-form select,
-.booking-form textarea{
+input,select{
 width:100%;
-padding:18px;
-border-radius:20px;
-border:2px solid #e2e8f0;
-margin-bottom:20px;
-font-size:16px;
+padding:12px;
+margin-bottom:10px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(0,0,0,.3);
+color:#fff;
 }
 
-.booking-row{
+#rooms{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin:10px 0;
+}
+
+.room-row{
+background:rgba(255,255,255,.04);
+padding:12px;
+border-radius:12px;
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:8px;
+align-items:center;
+}
+
+.remove-btn{
+background:#ef4444;
+color:#fff;
+border:none;
+border-radius:8px;
+cursor:pointer;
+padding:8px;
+}
+
+.add-btn{
+background:#f59e0b;
+border:none;
+color:#000;
+padding:12px;
+border-radius:10px;
+font-weight:800;
+cursor:pointer;
+width:100%;
+margin-top:8px;
 }
 
 .total-box{
-background:#07132d;
-padding:25px;
-text-align:center;
-border-radius:20px;
-margin-bottom:20px;
-color:#fff;
-}
-
-#totalHarga{
-font-size:34px;
-font-weight:800;
-color:#f4c542;
-}
-
-.qris-box{
-display:none;
-background:#f8fafc;
-padding:20px;
-border-radius:20px;
-text-align:center;
-margin-bottom:20px;
-}
-
-.qris-box img{
-max-width:250px;
-margin:auto;
-margin-bottom:15px;
-}
-
-.download-btn{
-background:#07132d;
-color:#fff;
-padding:12px 25px;
-border-radius:30px;
-display:inline-block;
-}
-
-.invoice{
-display:none;
-margin-top:30px;
-background:#f8fafc;
-padding:30px;
-border-radius:25px;
+background:#f59e0b;
 color:#000;
+padding:16px;
+border-radius:12px;
+font-weight:800;
+text-align:center;
+margin-top:10px;
 }
 
-.invoice-item{
-margin-bottom:10px;
+.btn-book{
+width:100%;
+padding:14px;
+background:#f59e0b;
+border:none;
+color:#000;
+font-weight:800;
+border-radius:12px;
+margin-top:10px;
 }
 
 /* MAPS */
-
-.maps iframe{
-width:100%;
-height:450px;
-border:none;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.map-button{
-margin-top:25px;
-text-align:center;
+#maps iframe{
+border-radius:18px;
 }
 
 /* FOOTER */
-
-.footer{
-background:#07132d;
-color:#fff;
-padding:80px 8% 30px;
-}
-
-.footer h2{
-font-size:42px;
-margin-bottom:20px;
-}
-
-.footer p{
-line-height:2;
+footer{
+background:#0b1220;
 color:#cbd5e1;
+padding:60px 8%;
 }
 
-.footer-info{
-margin-top:20px;
+.footer-brand h2{
+color:#fff;
+margin-bottom:10px;
 }
 
-.footer-info-item{
+.footer-item{
 display:flex;
-gap:12px;
-margin-bottom:15px;
-align-items:flex-start;
+gap:10px;
+align-items:center;
+margin:8px 0;
 }
 
-.footer-bottom{
-margin-top:40px;
-padding-top:25px;
+.footer-item span{color:#fbbf24;}
+
+.footer-license{
+margin-top:20px;
 border-top:1px solid rgba(255,255,255,.1);
+padding-top:15px;
 text-align:center;
+font-size:12px;
+color:#94a3b8;
 }
 
 /* WHATSAPP */
-
 .whatsapp{
 position:fixed;
 right:20px;
 bottom:20px;
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 background:#25d366;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:30px;
 color:#fff;
-z-index:999;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-
-/* ANIMATION */
-
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(30px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
+font-size:28px;
 }
 
 /* RESPONSIVE */
-
 @media(max-width:768px){
-
-.hero-content h1{
-font-size:48px;
-}
-
-.booking-row{
-grid-template-columns:1fr;
-}
-
-.section-title h2{
-font-size:34px;
-}
-
-.booking h2{
-font-size:36px;
-}
-
-.nav-links{
-display:none;
-}
-
-.menu-toggle{
-display:block;
-}
-
+.nav-links{display:none;}
+.hamburger{display:block;}
 }
 
 </style>
@@ -644,790 +294,250 @@ display:block;
 <body>
 
 <!-- HEADER -->
-
 <header>
 
 <div class="header-slider">
-
-<div class="slide active">
-<img src="images/header1.jpg" alt="">
-</div>
-
-<div class="slide">
-<img src="images/header2.jpg" alt="">
-</div>
-
-<div class="slide">
-<img src="images/header3.jpg" alt="">
-</div>
-
-<div class="slide">
-<img src="images/header4.jpg" alt="">
-</div>
-
-<div class="slide">
-<img src="images/header5.jpg" alt="">
-</div>
-
+<div class="header-slide active"><img src="header1.jpg"></div>
+<div class="header-slide"><img src="header2.jpg"></div>
+<div class="header-slide"><img src="header3.jpg"></div>
+<div class="header-slide"><img src="header4.jpg"></div>
+<div class="header-slide"><img src="header5.jpg"></div>
+<div class="header-slide"><img src="header6.jpg"></div>
 </div>
 
 <div class="overlay"></div>
 
-<!-- NAVBAR -->
-
 <nav class="navbar">
-
-<div class="logo">
-Jagoci Inn
-</div>
-
-<!-- DESKTOP MENU -->
-
+<div class="logo">JAGOJI INN</div>
 <div class="nav-links">
-
 <a href="#about">Tentang</a>
 <a href="#rooms">Kamar</a>
 <a href="#booking">Booking</a>
 <a href="#maps">Maps</a>
-
 </div>
-
-<!-- MOBILE BUTTON -->
-
-<div class="menu-toggle" id="menuToggle">
-☰
-</div>
-
-<!-- MOBILE MENU -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-<a href="#about">Tentang Hotel</a>
-
-<a href="#rooms">Kamar Hotel</a>
-
-<a href="#booking">Booking Kamar</a>
-
-<a href="#maps">Lokasi Hotel</a>
-
-<a href="https://wa.me/628211023580" target="_blank">
-WhatsApp Admin
-</a>
-
-</div>
-
+<div class="hamburger" onclick="toggleMenu()">☰</div>
 </nav>
 
-<!-- HERO -->
+<div class="mobile-menu" id="mobileMenu">
+<a href="#about">Tentang</a>
+<a href="#rooms">Kamar</a>
+<a href="#booking">Booking</a>
+<a href="#maps">Maps</a>
+</div>
 
 <div class="hero">
-
-<div class="hero-content">
-
-<h1>Jagoci Inn</h1>
-
-<p>
-Nikmati pengalaman menginap mewah dengan fasilitas premium,
-pelayanan profesional dan suasana hotel modern terbaik.
-</p>
-
-<div class="hero-btns">
-
-<a href="#rooms" class="btn btn-primary">
-Lihat Kamar
-</a>
-
-<a href="#booking" class="btn btn-secondary">
-Booking Sekarang
-</a>
-
-</div>
-
-</div>
-
+<h1>Luxury Stay Experience</h1>
+<p>Hotel modern dengan pelayanan premium dengan nuansa tenang</p>
 </div>
 
 </header>
 
 <!-- ABOUT -->
-
 <section id="about">
-
-<div class="section-title">
-<h2>Live Room Availability</h2>
-<p>Jumlah kamar tersedia hari ini</p>
-</div>
-
-<div class="live-room">
-
-<div class="live-card">
-<h3>Superior Room</h3>
-<span>5</span>
-<p>Kamar tersedia</p>
-</div>
-
-<div class="live-card">
-<h3>Deluxe Room</h3>
-<span>2</span>
-<p>Kamar tersedia</p>
-</div>
-
-<div class="live-card">
-<h3>VIP Room</h3>
-<span>1</span>
-<p>Kamar tersedia</p>
-</div>
-
-</div>
-
+<div class="section-title"><h2>Tentang Jagoci Inn</h2></div>
+<p>Jagoci Inn adalah hotel modern dengan konsep luxury yang menghadirkan kenyamanan terbaik dan pelayanan profesional, hotel berada di lingkumgan perkantoran Aceh tamiang sehingga memudahkan tamu dalam beraktifitas dalam urusan dinas.</p>
 </section>
 
-<!-- ROOM -->
-
+<!-- ROOMS -->
 <section id="rooms">
-
-<div class="section-title">
-<h2>Our Luxury Rooms</h2>
-<p>Nikmati pengalaman menginap premium terbaik.</p>
-</div>
+<div class="section-title"><h2>Kamar Hotel</h2></div>
 
 <div class="room-container">
 
 <!-- SUPERIOR -->
-
 <div class="room-card">
-
-<div class="slider">
-
-<div class="slides">
-
-<img src="images/superior1.jpg" alt="">
-<img src="images/superior2.jpg" alt="">
-<img src="images/superior3.jpg" alt="">
-<img src="images/superior4.jpg" alt="">
-<img src="images/superior5.jpg" alt="">
-
-</div>
-
-<div class="slider-controls">
-
-<button class="prev">&#10094;</button>
-
-<div class="dots">
-<span class="dot active"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-</div>
-
-<button class="next">&#10095;</button>
-
-</div>
-
-</div>
-
+<div class="slider"><div class="slides" data-i="0">
+<img src="superior1.jpg"><img src="superior2.jpg"><img src="superior3.jpg"><img src="superior4.jpg"><img src="superior5.jpg">
+</div></div>
+<div class="controls"><button onclick="slide(this,-1)">‹</button><button onclick="slide(this,1)">›</button></div>
 <div class="room-content">
-
-<h3>Superior Room</h3>
-
-<div class="price">
-Rp 400.000 / malam
+<h3>Superior</h3>
+<div class="price">Rp 400.000</div>
+<ul class="facilities">
+<li>TV Android</li>
+<li>AC</li>
+<li>Coffee & Tea</li>
+<li>WiFi</li>
+<li>Breakfast</li>
+<li>Single / Twin Bed</li>
+</ul>
 </div>
-
-<p>
-Kamar minimalis modern dengan kenyamanan terbaik.
-</p>
-
-<div class="facilities">
-<span>AC</span>
-<span>WiFi</span>
-<span>TV</span>
-<span>Breakfast</span>
-</div>
-
-<a href="#booking" class="btn btn-primary">
-Booking
-</a>
-
-</div>
-
 </div>
 
 <!-- DELUXE -->
-
 <div class="room-card">
-
-<div class="slider">
-
-<div class="slides">
-
-<img src="images/deluxe1.jpg" alt="">
-<img src="images/deluxe2.jpg" alt="">
-<img src="images/deluxe3.jpg" alt="">
-<img src="images/deluxe4.jpg" alt="">
-<img src="images/deluxe5.jpg" alt="">
-
-</div>
-
-<div class="slider-controls">
-
-<button class="prev">&#10094;</button>
-
-<div class="dots">
-<span class="dot active"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-</div>
-
-<button class="next">&#10095;</button>
-
-</div>
-
-</div>
-
+<div class="slider"><div class="slides" data-i="0">
+<img src="deluxe1.jpg"><img src="deluxe2.jpg"><img src="deluxe3.jpg"><img src="deluxe4.jpg"><img src="deluxe5.jpg">
+</div></div>
+<div class="controls"><button onclick="slide(this,-1)">‹</button><button onclick="slide(this,1)">›</button></div>
 <div class="room-content">
-
-<h3>Deluxe Room</h3>
-
-<div class="price">
-Rp 550.000 / malam
+<h3>Deluxe</h3>
+<div class="price">Rp 550.000</div>
+<ul class="facilities">
+<li>TV Android</li>
+<li>AC</li>
+<li>Coffee & Tea</li>
+<li>WiFi</li>
+<li>Freezer Box</li>
+<li>Single / Twin Bed</li>
+</ul>
 </div>
-
-<p>
-Ruangan luas dengan nuansa elegan premium.
-</p>
-
-<div class="facilities">
-<span>King Bed</span>
-<span>Smart TV</span>
-<span>WiFi</span>
-<span>Breakfast</span>
-</div>
-
-<a href="#booking" class="btn btn-primary">
-Booking
-</a>
-
-</div>
-
 </div>
 
 <!-- VIP -->
-
 <div class="room-card">
-
-<div class="slider">
-
-<div class="slides">
-
-<img src="images/vip1.jpg" alt="">
-<img src="images/vip2.jpg" alt="">
-<img src="images/vip3.jpg" alt="">
-<img src="images/vip4.jpg" alt="">
-<img src="images/vip5.jpg" alt="">
-
-</div>
-
-<div class="slider-controls">
-
-<button class="prev">&#10094;</button>
-
-<div class="dots">
-<span class="dot active"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-</div>
-
-<button class="next">&#10095;</button>
-
-</div>
-
-</div>
-
+<div class="slider"><div class="slides" data-i="0">
+<img src="vip1.jpg"><img src="vip2.jpg"><img src="vip3.jpg"><img src="vip4.jpg"><img src="vip5.jpg"><img src="vip6.jpg">
+</div></div>
+<div class="controls"><button onclick="slide(this,-1)">‹</button><button onclick="slide(this,1)">›</button></div>
 <div class="room-content">
-
-<h3>VIP Room</h3>
-
-<div class="price">
-Rp 1.000.000 / malam
+<h3>VIP</h3>
+<div class="price">Rp 1.000.000</div>
+<ul class="facilities">
+<li>Mini Bar</li>
+<li>Balkon</li>
+<li>Fruit & Snack</li>
+<li>Freezer Box</li>
+<li>Luxury Bed</li>
+</ul>
 </div>
-
-<p>
-Pengalaman menginap eksklusif luxury modern.
-</p>
-
-<div class="facilities">
-<span>Luxury Bed</span>
-<span>Mini Bar</span>
-<span>Netflix</span>
-<span>Breakfast</span>
-</div>
-
-<a href="#booking" class="btn btn-primary">
-Booking
-</a>
-
 </div>
 
 </div>
-
-</div>
-
 </section>
 
 <!-- BOOKING -->
+<section id="booking" class="booking">
 
-<section id="booking">
-
-<div class="booking">
-
-<h2>Booking Hotel</h2>
-
-<p>Reservasi kamar sekarang juga</p>
+<div class="section-title"><h2>Booking Hotel</h2></div>
 
 <div class="booking-form">
+<input placeholder="Nama">
+<input placeholder="WhatsApp">
 
-<input type="text" id="nama" placeholder="Nama Lengkap">
+<div id="rooms"></div>
 
-<input type="email" id="email" placeholder="Email">
+<button class="add-btn" onclick="addRoom()">+ Tambah Kamar</button>
 
-<input type="tel" id="hp" placeholder="Nomor WhatsApp">
+<div class="total-box" id="total">Total: Rp 0</div>
 
-<select id="kamar" onchange="hitungTotal()">
-
-<option value="">Pilih Tipe Kamar</option>
-
-<option value="Superior Room">
-Superior Room
-</option>
-
-<option value="Deluxe Room">
-Deluxe Room
-</option>
-
-<option value="VIP Room">
-VIP Room
-</option>
-
-</select>
-
-<div class="booking-row">
-
-<input type="date" id="checkin">
-
-<input type="date" id="checkout">
-
-</div>
-
-<input type="number" id="malam"
-placeholder="Jumlah Malam"
-oninput="hitungTotal()">
-
-<div class="total-box">
-
-<h3>Total Harga</h3>
-
-<div id="totalHarga">
-Rp 0
-</div>
-
-</div>
-
-<select id="pembayaran" onchange="showQris()">
-
-<option value="">
-Pilih Metode Pembayaran
-</option>
-
-<option value="Transfer Bank">
-Transfer Bank
-</option>
-
-<option value="QRIS">
-QRIS
-</option>
-
-</select>
-
-<div class="qris-box" id="qrisBox">
-
-<img src="images/qris.png" alt="">
-
-<a href="images/qris.png" download class="download-btn">
-Download QRIS
-</a>
-
-</div>
-
-<label>Upload Bukti Pembayaran</label>
-
-<input type="file">
-
-<textarea rows="5"
-placeholder="Catatan tambahan"></textarea>
-
-<button class="btn btn-primary"
-onclick="buatInvoice()">
-
-Selesaikan Booking
-
-</button>
-
-<div class="invoice" id="invoiceBox">
-
-<h3>Invoice Booking</h3>
-
-<div class="invoice-item" id="invNama"></div>
-<div class="invoice-item" id="invKamar"></div>
-<div class="invoice-item" id="invTanggal"></div>
-<div class="invoice-item" id="invTotal"></div>
-<div class="invoice-item" id="invPembayaran"></div>
-<div class="invoice-item" id="invKode"></div>
-
-</div>
-
-</div>
-
+<button class="btn-book">Kirim WhatsApp</button>
 </div>
 
 </section>
 
 <!-- MAPS -->
-
 <section id="maps">
-
-<div class="section-title">
-<h2>Lokasi Hotel</h2>
-<p>Temukan Jagoci Inn dengan mudah</p>
-</div>
-
-<div class="maps">
+<div class="section-title"><h2>Lokasi Hotel</h2></div>
 
 <iframe
-src="https://maps.google.com/maps?q=Jagoci%20Inn&t=&z=13&ie=UTF8&iwloc=&output=embed"
-allowfullscreen=""
-loading="lazy">
+src="https://www.google.com/maps?q=UaxAfwyWxQ7iLr329&output=embed"
+width="100%"
+height="400">
 </iframe>
-
-<div class="map-button">
-
-<a href="https://maps.google.com/?q=Jagoci+Inn"
-target="_blank"
-class="btn btn-primary">
-
-Buka di Google Maps
-
-</a>
-
-</div>
-
-</div>
 
 </section>
 
 <!-- FOOTER -->
+<footer>
 
-<footer class="footer">
-
+<div class="footer-brand">
 <h2>Jagoci Inn</h2>
-
-<p>
-Hotel dengan desain elegan,
-pelayanan profesional dan kenyamanan premium
-untuk pengalaman menginap terbaik Anda.
-</p>
-
-<div class="footer-info">
-
-<div class="footer-info-item">
-<span>📍</span>
-<p>Komplek BTN Satelit Graha, Aceh Tamiang</p>
+<p>Hotel dengan desain elegan, pelayanan profesional, dan kenyamanan premium untuk pengalaman menginap terbaik Anda.</p>
 </div>
 
-<div class="footer-info-item">
-<span>📧</span>
-<p>jagociinn97@gmail.com</p>
-</div>
+<div class="footer-item"><span>📧</span> jagociinn97@gmail.com</div>
+<div class="footer-item"><span>📱</span> +62821 102 3580</div>
+<div class="footer-item"><span>📍</span> Komplek BTN Satelit Graha, Aceh Tamiang</div>
 
-<div class="footer-info-item">
-<span>📞</span>
-<p>+62 821-1023-580</p>
-</div>
-
-</div>
-
-<div class="footer-bottom">
-<p>© 2026 Jagoci Inn Hotel. All Rights Reserved.</p>
+<div class="footer-license">
+© 2026 Jagoci Inn | Licensed Hotel System
 </div>
 
 </footer>
 
-<!-- WHATSAPP -->
-
-<a href="https://wa.me/628211023580" class="whatsapp">
-☎
-</a>
-
-<!-- SCRIPT -->
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<a class="whatsapp">☎</a>
 
 <script>
 
-/* AOS */
-
-AOS.init({
-duration:1000,
-once:true
-});
-
-/* MOBILE MENU */
-
-const menuToggle =
-document.getElementById('menuToggle');
-
-const mobileMenu =
-document.getElementById('mobileMenu');
-
-menuToggle.addEventListener('click',()=>{
-
-mobileMenu.classList.toggle('active');
-
-});
-
-/* CLOSE MENU WHEN CLICK */
-
-document.querySelectorAll('.mobile-menu a')
-.forEach(link=>{
-
-link.addEventListener('click',()=>{
-
-mobileMenu.classList.remove('active');
-
-});
-
-});
-
-/* TOTAL */
-
-function hitungTotal(){
-
-const kamar =
-document.getElementById('kamar').value;
-
-const malam =
-parseInt(document.getElementById('malam').value) || 0;
-
-let harga = 0;
-
-if(kamar === 'Superior Room'){
-harga = 400000;
-}
-
-else if(kamar === 'Deluxe Room'){
-harga = 550000;
-}
-
-else if(kamar === 'VIP Room'){
-harga = 1000000;
-}
-
-let total = harga * malam;
-
-document.getElementById('totalHarga').innerHTML =
-'Rp ' + total.toLocaleString('id-ID');
-
-}
-
-/* QRIS */
-
-function showQris(){
-
-const pembayaran =
-document.getElementById('pembayaran').value;
-
-const qrisBox =
-document.getElementById('qrisBox');
-
-if(pembayaran === 'QRIS'){
-qrisBox.style.display = 'block';
-}
-
-else{
-qrisBox.style.display = 'none';
-}
-
-}
-
-/* INVOICE */
-
-function buatInvoice(){
-
-const nama =
-document.getElementById('nama').value;
-
-const kamar =
-document.getElementById('kamar').value;
-
-const checkin =
-document.getElementById('checkin').value;
-
-const total =
-document.getElementById('totalHarga').innerText;
-
-const pembayaran =
-document.getElementById('pembayaran').value;
-
-const kode =
-'INV-' + Math.floor(Math.random()*999999);
-
-const invoice =
-document.getElementById('invoiceBox');
-
-invoice.style.display = 'block';
-
-document.getElementById('invNama').innerHTML =
-'<b>Nama :</b> ' + nama;
-
-document.getElementById('invKamar').innerHTML =
-'<b>Kamar :</b> ' + kamar;
-
-document.getElementById('invTanggal').innerHTML =
-'<b>Check In :</b> ' + checkin;
-
-document.getElementById('invTotal').innerHTML =
-'<b>Total :</b> ' + total;
-
-document.getElementById('invPembayaran').innerHTML =
-'<b>Pembayaran :</b> ' + pembayaran;
-
-document.getElementById('invKode').innerHTML =
-'<b>Invoice :</b> ' + kode;
-
-alert('Booking berhasil dibuat');
-
-}
-
-/* ROOM SLIDER */
-
-const sliders = document.querySelectorAll('.slider');
-
-sliders.forEach((slider)=>{
-
-const slides =
-slider.querySelector('.slides');
-
-const images =
-slider.querySelectorAll('img');
-
-const nextBtn =
-slider.querySelector('.next');
-
-const prevBtn =
-slider.querySelector('.prev');
-
-const dots =
-slider.querySelectorAll('.dot');
-
-let index = 0;
-
-function updateSlider(){
-
-slides.style.transform =
-`translateX(-${index * 100}%)`;
-
-dots.forEach(dot =>
-dot.classList.remove('active'));
-
-dots[index].classList.add('active');
-
-}
-
-nextBtn.addEventListener('click',()=>{
-
-index++;
-
-if(index >= images.length){
-index = 0;
-}
-
-updateSlider();
-
-});
-
-prevBtn.addEventListener('click',()=>{
-
-index--;
-
-if(index < 0){
-index = images.length - 1;
-}
-
-updateSlider();
-
-});
-
-dots.forEach((dot,dotIndex)=>{
-
-dot.addEventListener('click',()=>{
-
-index = dotIndex;
-
-updateSlider();
-
-});
-
-});
-
+/* HEADER */
+let h=0;
+const hs=document.querySelectorAll('.header-slide');
 setInterval(()=>{
-
-index++;
-
-if(index >= images.length){
-index = 0;
-}
-
-updateSlider();
-
+hs.forEach(x=>x.classList.remove('active'));
+hs[h].classList.add('active');
+h++;
+if(h>=hs.length)h=0;
 },5000);
 
-});
-
-/* HEADER AUTO SLIDER */
-
-const headerSlides =
-document.querySelectorAll('.header-slider .slide');
-
-let currentHeader = 0;
-
-function showHeaderSlide(index){
-
-headerSlides.forEach((slide)=>{
-slide.classList.remove('active');
-});
-
-headerSlides[index].classList.add('active');
-
+/* SLIDER ROOM */
+function slide(btn,dir){
+let s=btn.closest('.room-card').querySelector('.slides');
+let imgs=s.querySelectorAll('img');
+let i=parseInt(s.dataset.i);
+i+=dir;
+if(i<0)i=imgs.length-1;
+if(i>=imgs.length)i=0;
+s.dataset.i=i;
+s.style.transform=`translateX(-${i*100}%)`;
 }
 
-/* AUTO CHANGE */
+/* BOOKING */
+const prices={
+Superior:400000,
+Deluxe:550000,
+VIP:1000000
+};
 
-setInterval(()=>{
+const container=document.getElementById('rooms');
+const total=document.getElementById('total');
 
-currentHeader++;
+function addRoom(){
+let d=document.createElement('div');
+d.className='room-row';
 
-if(currentHeader >= headerSlides.length){
-currentHeader = 0;
+d.innerHTML=`
+<select>
+<option value="">Pilih</option>
+<option value="Superior">Superior</option>
+<option value="Deluxe">Deluxe</option>
+<option value="VIP">VIP</option>
+</select>
+<input type="date">
+<input type="date">
+<button onclick="this.parentElement.remove();update()">X</button>
+`;
+
+container.appendChild(d);
+
+d.querySelectorAll('select,input').forEach(e=>{
+e.onchange=update;
+});
 }
 
-showHeaderSlide(currentHeader);
+function update(){
+let t=0;
 
-},5000);
+document.querySelectorAll('.room-row').forEach(r=>{
+let type=r.children[0].value;
+let a=r.children[1].value;
+let b=r.children[2].value;
+
+if(type&&a&&b){
+let days=(new Date(b)-new Date(a))/86400000;
+if(days>0)t+=days*(prices[type]||0);
+}
+});
+
+total.innerText='Total: Rp '+t.toLocaleString('id-ID');
+}
+
+addRoom();
+
+/* MENU */
+function toggleMenu(){
+document.getElementById('mobileMenu').classList.toggle('show');
+}
 
 </script>
 
