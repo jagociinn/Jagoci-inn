@@ -1287,64 +1287,191 @@ document.getElementById('grandTotal')
 'Rp ' + grandTotal.toLocaleString('id-ID');  
   
 }  
-  
-/* SUNMIT BOOKING */  
-  const statusBox = document.getElementById("statusBooking");
+    
+/* SOCKET */
 
-document.getElementById("submitBooking").addEventListener("click", async (e) => {
-  e.preventDefault();
+const socket = io("http://192.168.1.10:3000");
 
-  const name = document.querySelector('input[placeholder="Nama Lengkap"]').value;
-  const email = document.querySelector('input[placeholder="Email"]').value;
-  const phone = document.querySelector('input[placeholder="Nomor WhatsApp"]').value;
+const statusBox =
+document.getElementById("statusBooking");
 
-  const total = document.getElementById("grandTotal")
-    .innerText
-    .replace(/[^\d]/g, "");
+/* BOOKING SUBMIT */
 
-  try {
-    statusBox.innerText = "Mengirim booking...";
-    statusBox.style.color = "orange";
+document.getElementById("submitBooking")
+.addEventListener("click", async (e) => {
 
-    const res = await fetch("http://192.168.1.10:3000/api/booking", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, total })
-    });
+e.preventDefault();
 
-    const data = await res.json();
+/* INPUT */
 
-    if (data.status) {
-      statusBox.innerText = "Booking berhasil dikirim";
-      statusBox.style.color = "green";
-    } else {
-      statusBox.innerText = "Gagal kirim booking";
-      statusBox.style.color = "red";
-    }
+const name =
+document.querySelector(
+'input[placeholder="Nama Lengkap"]'
+).value;
 
-  } catch (err) {
-    statusBox.innerText = "Server error";
-    statusBox.style.color = "red";
-  }
+const email =
+document.querySelector(
+'input[placeholder="Email"]'
+).value;
+
+const phone =
+document.querySelector(
+'input[placeholder="Nomor WhatsApp"]'
+).value;
+
+const payment =
+document.querySelectorAll("select")[1].value;
+
+const note =
+document.querySelector("textarea").value;
+
+/* ROOMS */
+
+const rooms = [];
+
+document.querySelectorAll(".room-item")
+.forEach((room) => {
+
+const roomType =
+room.querySelector(".roomType");
+
+const checkin =
+room.querySelector(".checkin").value;
+
+const checkout =
+room.querySelector(".checkout").value;
+
+const subtotal =
+room.querySelector(".subtotal").innerText;
+
+rooms.push({
+
+roomType:
+roomType.options[
+roomType.selectedIndex
+].text,
+
+price: roomType.value,
+
+checkin,
+checkout,
+subtotal
+
 });
 
+});
 
-// SOCKET.IO
-const socket = io("http://192.168.1.10:3000");
+/* TOTAL */
+
+const total =
+document.getElementById("grandTotal")
+.innerText;
+
+try {
+
+statusBox.innerText =
+"Mengirim booking...";
+
+statusBox.style.color =
+"orange";
+
+const res = await fetch(
+"http://192.168.1.7:3000/api/bookings",
+{
+method: "POST",
+
+headers: {
+"Content-Type":
+"application/json"
+},
+
+body: JSON.stringify({
+name,
+email,
+phone,
+payment,
+note,
+rooms,
+total
+})
+}
+);
+
+if (!res.ok) {
+
+throw new Error(
+"HTTP Error " + res.status
+);
+
+}
+
+const data = await res.json();
+
+if (data.success) {
+
+statusBox.innerText =
+"✔ Booking berhasil";
+
+statusBox.style.color =
+"green";
+
+} else {
+
+statusBox.innerText =
+"❌ Booking gagal";
+
+statusBox.style.color =
+"red";
+
+}
+
+} catch (err) {
+
+console.log(err);
+
+statusBox.innerText =
+"Server error: " + err.message;
+
+statusBox.style.color =
+"red";
+
+}
+
+});
+
+/* SOCKET STATUS */
 
 socket.on("status", (data) => {
 
-  if (data.status === "processing") {
-    statusBox.innerText = "⏳ Booking diproses...";
-  }
+if (data.status === "processing") {
 
-  if (data.status === "confirmed") {
-    statusBox.innerText = "✔ Booking berhasil dikonfirmasi";
-  }
+statusBox.innerText =
+"⏳ Booking diproses...";
 
-  if (data.status === "failed") {
-    statusBox.innerText = "❌ Booking gagal";
-  }
+statusBox.style.color =
+"orange";
+
+}
+
+if (data.status === "confirmed") {
+
+statusBox.innerText =
+"✔ Booking dikonfirmasi";
+
+statusBox.style.color =
+"green";
+
+}
+
+if (data.status === "failed") {
+
+statusBox.innerText =
+"❌ Booking gagal";
+
+statusBox.style.color =
+"red";
+
+}
 
 });
     
