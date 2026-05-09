@@ -945,6 +945,7 @@ Rp 1.000.000 / malam
           <button class="booking-btn" id="submitBooking">
             Selesaikan Booking
           </button>  
+          <div id="statusBooking" style="margin-top:15px;font-weight:600;"></div>
         </div>  
       </div>  
     </section>  
@@ -1288,64 +1289,63 @@ document.getElementById('grandTotal')
 }  
   
 /* SUNMIT BOOKING */  
-  document.getElementById("submitBooking").addEventListener("click", async () => {
+  const statusBox = document.getElementById("statusBooking");
+
+document.getElementById("submitBooking").addEventListener("click", async (e) => {
+  e.preventDefault();
 
   const name = document.querySelector('input[placeholder="Nama Lengkap"]').value;
   const email = document.querySelector('input[placeholder="Email"]').value;
   const phone = document.querySelector('input[placeholder="Nomor WhatsApp"]').value;
-  const total = document.getElementById("grandTotal").innerText.replace("Rp", "");
 
-  const statusBox = document.getElementById("statusBooking");
+  const total = document.getElementById("grandTotal")
+    .innerText
+    .replace(/[^\d]/g, "");
 
   try {
     statusBox.innerText = "Mengirim booking...";
     statusBox.style.color = "orange";
 
-    const res = await fetch("http://localhost:3000/api/booking", {
+    const res = await fetch("http://192.168.1.10:3000/api/booking", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        total
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, total })
     });
 
     const data = await res.json();
 
-    if (data.status === true) {
-      statusBox.innerText = "Booking telah dikirim";
+    if (data.status) {
+      statusBox.innerText = "Booking berhasil dikirim";
       statusBox.style.color = "green";
     } else {
-      statusBox.innerText = "Gagal mengirim booking";
+      statusBox.innerText = "Gagal kirim booking";
       statusBox.style.color = "red";
     }
 
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
     statusBox.innerText = "Server error";
     statusBox.style.color = "red";
   }
 });
-    
-   const socket = io("http://localhost:3000");
 
+
+// SOCKET.IO
+const socket = io("http://192.168.1.10:3000");
 
 socket.on("status", (data) => {
-  if (data.status === "sending") {
-    box.innerText = "⏳ Mengirim booking...";
+
+  if (data.status === "processing") {
+    statusBox.innerText = "⏳ Booking diproses...";
   }
 
-  if (data.status === "sent") {
-    box.innerText = "✔ Booking terkirim ke WhatsApp";
+  if (data.status === "confirmed") {
+    statusBox.innerText = "✔ Booking berhasil dikonfirmasi";
   }
 
   if (data.status === "failed") {
-    box.innerText = "❌ Gagal mengirim booking";
+    statusBox.innerText = "❌ Booking gagal";
   }
+
 });
     
   </script>  
