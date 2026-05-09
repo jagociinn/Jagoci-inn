@@ -1287,43 +1287,69 @@ document.getElementById('grandTotal')
 'Rp ' + grandTotal.toLocaleString('id-ID');  
   
 }  
+
+/* =========================
+   CONFIG BACKEND
+========================= */
+
+const API_URL =
+"https://hotel-backend.onrender.com";
     
 /* SOCKET */
 
-const socket = io("http://192.168.1.7:3000");
+const socket = io(API_URL, {
+transports: ["websocket", "polling"]
+});
 
 const statusBox =
 document.getElementById("statusBooking");
 
-/* BOOKING SUBMIT */
+/* =========================
+   BOOKING SUBMIT
+========================= */
 
 document.getElementById("submitBooking")
 .addEventListener("click", async (e) => {
 
 e.preventDefault();
 
+try {
+
 /* INPUT */
 
 const name =
 document.querySelector(
 'input[placeholder="Nama Lengkap"]'
-).value;
+).value.trim();
 
 const email =
 document.querySelector(
 'input[placeholder="Email"]'
-).value;
+).value.trim();
 
 const phone =
 document.querySelector(
 'input[placeholder="Nomor WhatsApp"]'
-).value;
+).value.trim();
 
 const payment =
 document.querySelectorAll("select")[1].value;
 
 const note =
-document.querySelector("textarea").value;
+document.querySelector("textarea").value.trim();
+
+/* VALIDASI */
+
+if (!name || !phone) {
+
+statusBox.innerText =
+"Nama dan nomor WA wajib diisi";
+
+statusBox.style.color = "red";
+
+return;
+
+}
 
 /* ROOMS */
 
@@ -1344,6 +1370,12 @@ room.querySelector(".checkout").value;
 const subtotal =
 room.querySelector(".subtotal").innerText;
 
+if (
+roomType.value !== "0" &&
+checkin &&
+checkout
+) {
+
 rooms.push({
 
 roomType:
@@ -1359,7 +1391,20 @@ subtotal
 
 });
 
+}
+
 });
+
+if (rooms.length === 0) {
+
+statusBox.innerText =
+"Pilih minimal 1 kamar";
+
+statusBox.style.color = "red";
+
+return;
+
+}
 
 /* TOTAL */
 
@@ -1367,16 +1412,16 @@ const total =
 document.getElementById("grandTotal")
 .innerText;
 
-try {
-
 statusBox.innerText =
 "Mengirim booking...";
 
 statusBox.style.color =
 "orange";
 
+/* FETCH */
+
 const res = await fetch(
-"http://192.168.1.7:3000/api/booking",
+`${API_URL}/api/booking`,
 {
 method: "POST",
 
@@ -1397,10 +1442,12 @@ total
 }
 );
 
+/* CHECK RESPONSE */
+
 if (!res.ok) {
 
 throw new Error(
-"HTTP Error " + res.status
+"Server " + res.status
 );
 
 }
@@ -1439,7 +1486,21 @@ statusBox.style.color =
 
 });
 
-/* SOCKET STATUS */
+/* =========================
+   SOCKET STATUS
+========================= */
+
+socket.on("connect", () => {
+
+console.log("Socket connected");
+
+});
+
+socket.on("connect_error", (err) => {
+
+console.log("Socket Error:", err);
+
+});
 
 socket.on("status", (data) => {
 
