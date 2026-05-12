@@ -647,7 +647,7 @@ resize:none;
   
 /* Focus effect */  
 .booking-form input:focus,  
-.booking-form select:focus,  
+.g-form select:focus,  
 .booking-form textarea:focus{  
 outline:none;  
 border-color:#f4c542;  
@@ -1811,7 +1811,7 @@ CONFIG BACKEND
 ========================= */
 
 const API_URL =
-"https://decor-liabilities-food-third.trycloudflare.com";
+"https://cheers-towers-guards-stand.trycloudflare.com";
 
 /* SOCKET */
 
@@ -1822,18 +1822,15 @@ transports: ["websocket", "polling"]
 const statusBox =
 document.getElementById("statusBooking");
 
-/* =========================
-BOOKING SUBMIT
-========================= */
-
+      
+/* BOOKING FORM */
+      
 document.getElementById("submitBooking")
 .addEventListener("click", async (e) => {
 
 e.preventDefault();
 
 try {
-
-/* INPUT */
 
 const name =
 document.querySelector(
@@ -1851,10 +1848,13 @@ document.querySelector(
 ).value.trim();
 
 const payment =
-document.querySelectorAll("select")[1].value;
+document.getElementById("paymentMethod").value;
 
 const note =
 document.querySelector("textarea").value.trim();
+
+const paymentProof =
+document.getElementById("paymentProof");
 
 /* VALIDASI */
 
@@ -1869,7 +1869,7 @@ return;
 
 }
 
-/* ROOMS */
+/* ROOM DATA */
 
 const rooms = [];
 
@@ -1930,37 +1930,50 @@ const total =
 document.getElementById("grandTotal")
 .innerText;
 
+/* FORM DATA */
+
+const formData = new FormData();
+
+formData.append("name", name);
+formData.append("email", email);
+formData.append("phone", phone);
+formData.append("payment", payment);
+formData.append("note", note);
+formData.append("total", total);
+
+formData.append(
+"rooms",
+JSON.stringify(rooms)
+);
+
+/* FILE */
+
+if(paymentProof.files[0]){
+
+formData.append(
+"paymentProof",
+paymentProof.files[0]
+);
+
+}
+
+/* STATUS */
+
 statusBox.innerText =
 "Mengirim booking...";
 
 statusBox.style.color =
 "orange";
 
-/* FETCH */
+/* SEND */
 
 const res = await fetch(
 `${API_URL}/api/booking`,
 {
 method: "POST",
-
-headers: {
-"Content-Type":
-"application/json"
-},
-
-body: JSON.stringify({
-name,
-email,
-phone,
-payment,
-note,
-rooms,
-total
-})
+body: formData
 }
 );
-
-/* CHECK RESPONSE */
 
 if (!res.ok) {
 
@@ -2146,9 +2159,9 @@ Silahkan lakukan pembayaran ke rekening hotel berikut:
 </p>
 
 <div class="rekening">
-BCA - 1234567890
+BCA - 1110447155
 <br>
-a/n Jagoci Inn Hotel
+a/n Wika Amelia
 </div>
 `;
 
