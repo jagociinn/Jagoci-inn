@@ -148,12 +148,16 @@ const paymentDetail = document.getElementById('paymentDetail');
 paymentMethodSelect.addEventListener('change', () => {
   const value = paymentMethodSelect.value;
 
-  if (value === 'bank') {
-    paymentDetail.classList.add('active');
-    paymentDetail.innerHTML = `
-      <h4>Transfer Bank</h4>
-      <p>Silahkan lakukan pembayaran ke rekening hotel berikut:</p>
-      <div class="rekening">BCA : </div>
+ if (value === 'bank') {
+  paymentDetail.classList.add('active');
+  paymentDetail.innerHTML = `
+    <h4>Transfer Bank</h4>
+    <p>
+      Silakan hubungi pihak Jagoci Inn untuk mendapatkan informasi
+      pembayaran melalui transfer bank.
+    </p>
+  `;
+}
     `;
   } else if (value === 'qris') {
     paymentDetail.classList.add('active');
