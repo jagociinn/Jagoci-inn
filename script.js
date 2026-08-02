@@ -153,7 +153,7 @@ paymentMethodSelect.addEventListener('change', () => {
     paymentDetail.innerHTML = `
       <h4>Transfer Bank</h4>
       <p>Silahkan lakukan pembayaran ke rekening hotel berikut:</p>
-      <div class="rekening">BCA : JOSSE MARANATHA LINGGA - 1790420744</div>
+      <div class="rekening">BCA : </div>
     `;
   } else if (value === 'qris') {
     paymentDetail.classList.add('active');
